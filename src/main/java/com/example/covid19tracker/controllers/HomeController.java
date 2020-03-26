@@ -19,11 +19,19 @@ public class HomeController {
         ArrayList<LocationStats> allStats = coronavirusDataService.getAllStats();
         String lastUpdatedAt = coronavirusDataService.getLastUpdatedAt();
         int totalReportedCases = allStats.stream().mapToInt(LocationStats::getLatestTotalCases).sum();
-        int totalNewCases = allStats.stream().mapToInt(LocationStats::getDiffFromPreviousDay).sum();
+        int totalNewCases = allStats.stream().mapToInt(LocationStats::getDiffCasesFromPreviousDay).sum();
+        int totalReportedDeaths = allStats.stream().mapToInt(LocationStats::getLatestTotalDeaths).sum();
+        int totalNewDeaths = allStats.stream().mapToInt(LocationStats::getDiffDeathsFromPreviousDay).sum();
+        int totalReportedRecoveries = allStats.stream().mapToInt(LocationStats::getLatestTotalRecoveries).sum();
+        int totalNewRecoveries = allStats.stream().mapToInt(LocationStats::getDiffRecoveriesFromPreviousDay).sum();
 
         model.addAttribute("locationStats", allStats);
         model.addAttribute("totalCases", totalReportedCases);
         model.addAttribute("totalNewCases", totalNewCases);
+        model.addAttribute("totalDeaths", totalReportedDeaths);
+        model.addAttribute("totalNewDeaths", totalNewDeaths);
+        model.addAttribute("totalRecoveries", totalReportedRecoveries);
+        model.addAttribute("totalNewRecoveries", totalNewRecoveries);
         model.addAttribute("lastUpdated", lastUpdatedAt);
 
         return "home";

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,11 +25,34 @@
     </div>
 
     <div class="jumbotron">
-        <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>
-        <p class="lead">Total confirmed cases worldwide</p>
-        <hr class="my-4">
-        <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>
-        <p class="lead">New confirmed cases today</p>
+        <!--        <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>-->
+        <!--        <p class="lead">Total confirmed cases worldwide</p>-->
+        <!--        <hr class="my-4">-->
+        <!--        <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>-->
+        <!--        <p class="lead">New confirmed cases today</p>-->
+        <div class="row">
+            <div class="col-md-4">
+                <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>
+                <p class="lead">Total confirmed cases worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>
+                <p class="lead">New confirmed cases today</p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4" th:text="${totalDeaths}"></h1>
+                <p class="lead">Total deaths worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewDeaths}"></h1>
+                <p class="lead">New deaths today</p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4 text-success" th:text="${totalRecoveries}"></h1>
+                <p class="lead">Total recoveries worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewRecoveries}"></h1>
+                <p class="lead">New recoveries today</p>
+            </div>
+        </div>
     </div>
 
     <table id="covid-table" class="display" style="width:100%">
@@ -38,14 +62,22 @@
             <th>Country/Region</th>
             <th>Total cases</th>
             <th>New cases since yesterday</th>
+            <th>Total deaths</th>
+            <th>New deaths since yesterday</th>
+            <th>Total Recoveries</th>
+            <th>New recoveries since yesterday</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="locationStat : ${locationStats}">
-            <td th:text="${locationStat.getProvOrState()}"></td>
-            <td th:text="${locationStat.getCountOrReg()}"></td>
+            <td th:text="${locationStat.getProvOrState()}" class="text-secondary"></td>
+            <td th:text="${locationStat.getCountOrReg()}" class="text-secondary"></td>
             <td th:text="${locationStat.getLatestTotalCases()}" class="text-danger">0</td>
-            <td th:text="${locationStat.getDiffFromPreviousDay()}" class="text-primary">0</td>
+            <td th:text="${locationStat.getDiffCasesFromPreviousDay()}" class="text-primary">0</td>
+            <td th:text="${locationStat.getLatestTotalDeaths()}">0</td>
+            <td th:text="${locationStat.getDiffDeathsFromPreviousDay()}" class="text-primary">0</td>
+            <td th:text="${locationStat.getLatestTotalRecoveries()}" class="text-success">0</td>
+            <td th:text="${locationStat.getDiffRecoveriesFromPreviousDay()}" class="text-primary">0</td>
         </tr>
         </tbody>
         <tfoot>
@@ -69,4 +101,62 @@
 
 </body>
 
+<br>
+
+<!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
+
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Coronavirus symptoms include:</h5>
+                <ul>
+                    <li>Cough</li>
+                    <li>Fever</li>
+                    <li>Difficulty breathing</li>
+                    <li>Pneumonia in both lungs</li>
+                </ul>
+
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">If you become ill: </h5>
+                <ul>
+                    <li>Isolate yourself at home for 14 days to avoid spreading it to others</li>
+                    <li>If you live with others, stay in a separate room or keep a 2-metre distance</li>
+                    <li>Visit a health care professional or call your local public health authority</li>
+                </ul>
+
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Text -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">Created out of pure boredom by:
+        <a href="github.com/colinchan15">Colin Chan</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 </html>
