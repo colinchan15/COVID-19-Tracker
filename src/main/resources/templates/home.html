@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Coronavirus Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1 class="display-3">COVID-19 Tracker</h1>
+    <div class="alert alert-primary" role="alert">
+        <p>Dataset gathered from <a href="https://github.com/CSSEGISandData/COVID-19" class="alert-link">Johns Hopkins
+            CSSE 2019-nCoV repository</a>.</p>
+        <p><small>
+            <span>Last updated at: </span>
+            <span th:text="${lastUpdated}"></span>
+        </small></p>
+    </div>
+
+    <div class="jumbotron">
+        <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>
+        <p class="lead">Total confirmed cases worldwide</p>
+        <hr class="my-4">
+        <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>
+        <p class="lead">New confirmed cases today</p>
+    </div>
+
+    <table id="covid-table" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Province/State</th>
+            <th>Country/Region</th>
+            <th>Total cases</th>
+            <th>New cases since yesterday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.getProvOrState()}"></td>
+            <td th:text="${locationStat.getCountOrReg()}"></td>
+            <td th:text="${locationStat.getLatestTotalCases()}" class="text-danger">0</td>
+            <td th:text="${locationStat.getDiffFromPreviousDay()}" class="text-primary">0</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Province/State</th>
+            <th>Country/Region</th>
+            <th>Total cases</th>
+            <th>New cases since yesterday</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#covid-table').DataTable();
+    });
+</script>
+
+</body>
+
+</html>
