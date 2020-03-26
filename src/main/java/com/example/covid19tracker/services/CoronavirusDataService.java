@@ -55,8 +55,8 @@ public class CoronavirusDataService {
     private ArrayList<LocationStats> fetchDeathsData(HttpClient client, ArrayList<LocationStats> data) throws IOException, InterruptedException {
         Iterable<CSVRecord> records = getRecords(client, DEATHS_GLOBAL_DATA);
         for (CSVRecord record : records) {
-            int latestDeaths = Integer.parseInt(record.get(record.size() - 1));
-            int previousDayDeaths = Integer.parseInt(record.get(record.size() - 2));
+            int latestDeaths = !record.get(record.size() - 1).isEmpty() ? Integer.parseInt(record.get(record.size() - 1)) : 0;
+            int previousDayDeaths = !record.get(record.size() - 2).isEmpty() ? Integer.parseInt(record.get(record.size() - 2)) : 0;
             for (LocationStats row : data) {
                 if (row.getLatitude() == Float.parseFloat(record.get("Lat")) && row.getLongitude() == Float.parseFloat(record.get("Long"))) {
                     row.setLatestTotalDeaths(latestDeaths);
@@ -70,8 +70,8 @@ public class CoronavirusDataService {
     private ArrayList<LocationStats> fetchRecoveriesData(HttpClient client, ArrayList<LocationStats> data) throws IOException, InterruptedException {
         Iterable<CSVRecord> records = getRecords(client, RECOVERED_GLOBAL_DATA);
         for (CSVRecord record : records) {
-            int latestRecoveries = Integer.parseInt(record.get(record.size() - 1));
-            int previousDayRecoveries = Integer.parseInt(record.get(record.size() - 2));
+            int latestRecoveries = !record.get(record.size() - 1).isEmpty() ? Integer.parseInt(record.get(record.size() - 1)) : 0;
+            int previousDayRecoveries = !record.get(record.size() - 2).isEmpty() ? Integer.parseInt(record.get(record.size() - 2)) : 0;
             for (LocationStats row : data) {
                 if (row.getLatitude() == Float.parseFloat(record.get("Lat")) && row.getLongitude() == Float.parseFloat(record.get("Long"))) {
                     row.setLatestTotalRecoveries(latestRecoveries);
@@ -87,8 +87,8 @@ public class CoronavirusDataService {
         Iterable<CSVRecord> records = getRecords(client, CONFIRMED_GLOBAL_DATA);
         for (CSVRecord record : records) {
             LocationStats locationStat = new LocationStats();
-            int latestCases = Integer.parseInt(record.get(record.size() - 1));
-            int previousDayCases = Integer.parseInt(record.get(record.size() - 2));
+            int latestCases = !record.get(record.size() - 1).isEmpty() ? Integer.parseInt(record.get(record.size() - 1)) : 0;
+            int previousDayCases = !record.get(record.size() - 2).isEmpty() ? Integer.parseInt(record.get(record.size() - 2)) : 0;
 
             locationStat.setCountOrReg(record.get("Country/Region"));
             locationStat.setProvOrState(record.get("Province/State").equals("") ? "Entire Country" : record.get("Province/State"));
