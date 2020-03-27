@@ -11,166 +11,208 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.14.1/css/mdb.min.css" rel="stylesheet">
 </head>
 
-<div>
-
-    <div class="container-fluid">
-        <h1 class="display-3">COVID-19 Tracker</h1>
-        <div class="alert alert-primary" role="alert">
-            <p>Dataset gathered from <a href="https://github.com/CSSEGISandData/COVID-19" class="alert-link">Johns
-                Hopkins
-                CSSE 2019-nCoV repository</a>.</p>
-            <p><small>
-                <span>Last updated at: </span>
-                <span th:text="${lastUpdated}"></span>
-            </small></p>
-        </div>
-
-        <div class="jumbotron">
-            <!--        <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>-->
-            <!--        <p class="lead">Total confirmed cases worldwide</p>-->
-            <!--        <hr class="my-4">-->
-            <!--        <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>-->
-            <!--        <p class="lead">New confirmed cases today</p>-->
-            <div class="row">
-                <div class="col-md-4">
-                    <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>
-                    <p class="lead">Total cases worldwide</p>
-                    <hr class="my-4">
-                    <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>
-                    <p class="lead">New cases today</p>
-                </div>
-                <div class="col-md-4">
-                    <h1 class="display-4" th:text="${totalDeaths}"></h1>
-                    <p class="lead">Total deaths worldwide</p>
-                    <hr class="my-4">
-                    <h1 class="display-4 text-primary" th:text="${totalNewDeaths}"></h1>
-                    <p class="lead">New deaths today</p>
-                </div>
-                <div class="col-md-4">
-                    <h1 class="display-4 text-success" th:text="${totalRecoveries}"></h1>
-                    <p class="lead">Total recoveries worldwide</p>
-                    <hr class="my-4">
-                    <h1 class="display-4 text-primary" th:text="${totalNewRecoveries}"></h1>
-                    <p class="lead">New recoveries today</p>
-                </div>
-            </div>
-        </div>
-
-        <table id="covid-table" class="display" style="width:100%">
-            <thead>
-            <tr>
-                <th>Province/State</th>
-                <th>Country/Region</th>
-                <th>Total cases</th>
-                <th>New cases since yesterday</th>
-                <th>Total deaths</th>
-                <th>New deaths since yesterday</th>
-                <th>Total Recoveries</th>
-                <th>New recoveries since yesterday</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="locationStat : ${locationStats}">
-                <td th:text="${locationStat.getProvOrState()}" class="text-secondary"></td>
-                <td th:text="${locationStat.getCountOrReg()}" class="text-secondary"></td>
-                <td th:text="${locationStat.getLatestTotalCases()}" class="text-danger">0</td>
-                <td th:text="${locationStat.getDiffCasesFromPreviousDay()}" class="text-primary">0</td>
-                <td th:text="${locationStat.getLatestTotalDeaths()}">0</td>
-                <td th:text="${locationStat.getDiffDeathsFromPreviousDay()}" class="text-primary">0</td>
-                <td th:text="${locationStat.getLatestTotalRecoveries()}" class="text-success">0</td>
-                <td th:text="${locationStat.getDiffRecoveriesFromPreviousDay()}" class="text-primary">0</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th>Province/State</th>
-                <th>Country/Region</th>
-                <th>Total cases</th>
-                <th>New cases since yesterday</th>
-                <th>Total deaths</th>
-                <th>New deaths since yesterday</th>
-                <th>Total Recoveries</th>
-                <th>New recoveries since yesterday</th>
-            </tr>
-            </tfoot>
-        </table>
+<body>
+<div class="container-fluid">
+    <h1 class="display-3">COVID-19 Tracker</h1>
+    <div class="alert alert-primary" role="alert">
+        <p>Dataset gathered from <a href="https://github.com/CSSEGISandData/COVID-19" class="alert-link">Johns
+            Hopkins
+            CSSE 2019-nCoV repository</a>.</p>
+        <p><small>
+            <span>Last updated at: </span>
+            <span th:text="${lastUpdated}"></span>
+        </small></p>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#covid-table').DataTable();
-        });
-    </script>
-
-    <br>
-
-    <div class="container">
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="https://www.google.com/maps/d/embed?mid=1a04iBi41DznkMaQRnICO40ktROfnMfMx" style="border: 1px solid black;"></iframe>
+    <div class="jumbotron">
+        <!--        <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>-->
+        <!--        <p class="lead">Total confirmed cases worldwide</p>-->
+        <!--        <hr class="my-4">-->
+        <!--        <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>-->
+        <!--        <p class="lead">New confirmed cases today</p>-->
+        <div class="row">
+            <div class="col-md-4">
+                <h1 class="display-4 text-danger" th:text="${totalCases}"></h1>
+                <p class="lead">Total cases worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewCases}"></h1>
+                <p class="lead">New cases today</p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4" th:text="${totalDeaths}"></h1>
+                <p class="lead">Total deaths worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewDeaths}"></h1>
+                <p class="lead">New deaths today</p>
+            </div>
+            <div class="col-md-4">
+                <h1 class="display-4 text-success" th:text="${totalRecoveries}"></h1>
+                <p class="lead">Total recoveries worldwide</p>
+                <hr class="my-4">
+                <h1 class="display-4 text-primary" th:text="${totalNewRecoveries}"></h1>
+                <p class="lead">New recoveries today</p>
+            </div>
         </div>
     </div>
 
-    </body>
+    <table id="covid-table" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Province/State</th>
+            <th>Country/Region</th>
+            <th>Total cases</th>
+            <th>New cases since yesterday</th>
+            <th>Total deaths</th>
+            <th>New deaths since yesterday</th>
+            <th>Total Recoveries</th>
+            <th>New recoveries since yesterday</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.getProvOrState()}" class="text-secondary"></td>
+            <td th:text="${locationStat.getCountOrReg()}" class="text-secondary"></td>
+            <td th:text="${locationStat.getLatestTotalCases()}" class="text-danger">0</td>
+            <td th:text="${locationStat.getDiffCasesFromPreviousDay()}" class="text-primary">0</td>
+            <td th:text="${locationStat.getLatestTotalDeaths()}">0</td>
+            <td th:text="${locationStat.getDiffDeathsFromPreviousDay()}" class="text-primary">0</td>
+            <td th:text="${locationStat.getLatestTotalRecoveries()}" class="text-success">0</td>
+            <td th:text="${locationStat.getDiffRecoveriesFromPreviousDay()}" class="text-primary">0</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Province/State</th>
+            <th>Country/Region</th>
+            <th>Total cases</th>
+            <th>New cases since yesterday</th>
+            <th>Total deaths</th>
+            <th>New deaths since yesterday</th>
+            <th>Total Recoveries</th>
+            <th>New recoveries since yesterday</th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
 
-    <br>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#covid-table').DataTable();
+    });
+</script>
 
-    <!-- Footer -->
-    <footer class="page-footer font-small teal pt-4">
+<br><br>
 
-        <!-- Footer Text -->
-        <div class="container-fluid text-center text-md-left">
+<!--<div class="container">-->
+<!--    <div class="embed-responsive embed-responsive-16by9">-->
+<!--        <iframe class="embed-responsive-item"-->
+<!--                src="https://www.google.com/maps/d/embed?mid=1a04iBi41DznkMaQRnICO40ktROfnMfMx" height="300" ;-->
+<!--                width="300" style="border: 1px solid black;"></iframe>-->
+<!--        <a class="twitter-timeline"-->
+<!--           href="https://twitter.com/TwitterDev"-->
+<!--           data-width="300"-->
+<!--           data-height="300">-->
+<!--            Tweets by @TwitterDev-->
+<!--        </a>-->
+<!--        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+<!--    </div>-->
+<!--</div>-->
 
-            <!-- Grid row -->
-            <div class="row">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="embed-container">
+                <a class="twitter-timeline"
+                   href="https://twitter.com/CTVToronto"
+                   data-width="300"
+                   data-height="400">
+                    Latest COVID-19 reports by @CTVToronto
+                </a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+        <div class="col">
+            <div class="embed-container">
+                <iframe class="embed-responsive-item"
+                        src="https://www.google.com/maps/d/embed?mid=1a04iBi41DznkMaQRnICO40ktROfnMfMx" height="400" ;
+                        width="600" style="border: 1px solid black;" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col">
+            <div class="embed-container">
+                <a class="twitter-timeline"
+                   href="https://twitter.com/BNODesk"
+                   data-width="300"
+                   data-height="400">
+                    Latest COVID-19 reports by @BNODesk
+                </a>
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <!-- Grid column -->
-                <div class="col-md-6 mt-md-0 mt-3">
+</body>
 
-                    <!-- Content -->
-                    <h5 class="text-uppercase font-weight-bold">Coronavirus symptoms include:</h5>
-                    <ul>
-                        <li>Cough</li>
-                        <li>Fever</li>
-                        <li>Difficulty breathing</li>
-                        <li>Pneumonia in both lungs</li>
-                    </ul>
+<br>
 
+<!-- Footer -->
+<footer class="page-footer font-small teal pt-4">
 
-                </div>
-                <!-- Grid column -->
+    <!-- Footer Text -->
+    <div class="container-fluid text-center text-md-left">
 
-                <hr class="clearfix w-100 d-md-none pb-3">
+        <!-- Grid row -->
+        <div class="row">
 
-                <!-- Grid column -->
-                <div class="col-md-6 mb-md-0 mb-3">
+            <!-- Grid column -->
+            <div class="col-md-6 mt-md-0 mt-3">
 
-                    <!-- Content -->
-                    <h5 class="text-uppercase font-weight-bold">If you become ill: </h5>
-                    <ul>
-                        <li>Isolate yourself at home for 14 days to avoid spreading it to others</li>
-                        <li>If you live with others, stay in a separate room or keep a 2-metre distance</li>
-                        <li>Visit a health care professional or call your local public health authority</li>
-                    </ul>
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">Coronavirus symptoms include:</h5>
+                <ul>
+                    <li>Cough</li>
+                    <li>Fever</li>
+                    <li>Difficulty breathing</li>
+                    <li>Pneumonia in both lungs</li>
+                </ul>
 
-
-                </div>
-                <!-- Grid column -->
 
             </div>
-            <!-- Grid row -->
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-6 mb-md-0 mb-3">
+
+                <!-- Content -->
+                <h5 class="text-uppercase font-weight-bold">If you become ill: </h5>
+                <ul>
+                    <li>Isolate yourself at home for 14 days to avoid spreading it to others</li>
+                    <li>If you live with others, stay in a separate room or keep a 2-metre distance</li>
+                    <li>Visit a health care professional or call your local public health authority</li>
+                </ul>
+
+
+            </div>
+            <!-- Grid column -->
 
         </div>
-        <!-- Footer Text -->
+        <!-- Grid row -->
 
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">Created out of pure boredom by:
-            <a href="https://github.com/colinchan15">Colin Chan</a>
-        </div>
-        <!-- Copyright -->
+    </div>
+    <!-- Footer Text -->
 
-    </footer>
-    <!-- Footer -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">Created out of pure boredom by:
+        <a href="https://github.com/colinchan15">Colin Chan</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 </html>
